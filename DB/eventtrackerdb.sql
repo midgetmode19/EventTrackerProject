@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `fuel_tracker` (
   `trip_miles` INT NULL,
   `fuel_cost` DOUBLE NOT NULL,
   `gallons_per_fill` DOUBLE NULL,
+  `date_of_refuel` DATE NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -38,3 +39,18 @@ GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'eventuser'@'localho
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `fuel_tracker`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `eventtrackerdb`;
+INSERT INTO `fuel_tracker` (`id`, `trip_miles`, `fuel_cost`, `gallons_per_fill`, `date_of_refuel`) VALUES (1, 318, 32.96, 10.893, '2018-08-05');
+INSERT INTO `fuel_tracker` (`id`, `trip_miles`, `fuel_cost`, `gallons_per_fill`, `date_of_refuel`) VALUES (2, 296, 29.18, 9.987, '2018-08-13');
+INSERT INTO `fuel_tracker` (`id`, `trip_miles`, `fuel_cost`, `gallons_per_fill`, `date_of_refuel`) VALUES (3, 304, 31.06, 10.206, '2018-08-22');
+INSERT INTO `fuel_tracker` (`id`, `trip_miles`, `fuel_cost`, `gallons_per_fill`, `date_of_refuel`) VALUES (4, 334, 33.76, 10.907, '2018-08-30');
+INSERT INTO `fuel_tracker` (`id`, `trip_miles`, `fuel_cost`, `gallons_per_fill`, `date_of_refuel`) VALUES (5, 319, 32.48, 10.576, '2018-09-06');
+INSERT INTO `fuel_tracker` (`id`, `trip_miles`, `fuel_cost`, `gallons_per_fill`, `date_of_refuel`) VALUES (6, 298, 30.09, 10.109, '2018-09-14');
+
+COMMIT;
+

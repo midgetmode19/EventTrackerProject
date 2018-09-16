@@ -1,5 +1,7 @@
 package com.skilldistillery.eventtracker.entities;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,23 +15,28 @@ public class FuelTracker {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@Column(name = "trip_miles")
 	private Integer miles;
 
 	@Column(name = "fuel_cost")
 	private Double fuelCost;
 
-	@Column(name = "gallones_per_fill")
+	@Column(name = "gallons_per_fill")
 	private Double gallonsPerFill;
+
+	@Column(name = "date_of_refuel")
+	private Date refuelDate;
 
 	public FuelTracker() {
 	}
 
-	public FuelTracker(int id, Integer miles, Double fuelCost, Double gallonsPerFill) {
+	public FuelTracker(int id, Integer miles, Double fuelCost, Double gallonsPerFill, Date refuelDate) {
 		this.id = id;
 		this.miles = miles;
 		this.fuelCost = fuelCost;
 		this.gallonsPerFill = gallonsPerFill;
+		this.refuelDate = refuelDate;
 	}
 
 	public int getId() {
@@ -64,6 +71,14 @@ public class FuelTracker {
 		this.gallonsPerFill = gallonsPerFill;
 	}
 
+	public Date getRefuelDate() {
+		return refuelDate;
+	}
+
+	public void setRefuelDate(Date refuelDate) {
+		this.refuelDate = refuelDate;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,6 +87,7 @@ public class FuelTracker {
 		result = prime * result + ((gallonsPerFill == null) ? 0 : gallonsPerFill.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((miles == null) ? 0 : miles.hashCode());
+		result = prime * result + ((refuelDate == null) ? 0 : refuelDate.hashCode());
 		return result;
 	}
 
@@ -101,13 +117,18 @@ public class FuelTracker {
 				return false;
 		} else if (!miles.equals(other.miles))
 			return false;
+		if (refuelDate == null) {
+			if (other.refuelDate != null)
+				return false;
+		} else if (!refuelDate.equals(other.refuelDate))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "FuelTracker [id=" + id + ", miles=" + miles + ", fuelCost=" + fuelCost + ", gallonsPerFill="
-				+ gallonsPerFill + "]";
+				+ gallonsPerFill + ", refuelDate=" + refuelDate + "]";
 	}
 
 }
