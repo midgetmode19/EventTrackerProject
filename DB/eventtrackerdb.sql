@@ -16,12 +16,15 @@ CREATE SCHEMA IF NOT EXISTS `eventtrackerdb` DEFAULT CHARACTER SET utf8 ;
 USE `eventtrackerdb` ;
 
 -- -----------------------------------------------------
--- Table `dummy`
+-- Table `fuel_tracker`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `dummy` ;
+DROP TABLE IF EXISTS `fuel_tracker` ;
 
-CREATE TABLE IF NOT EXISTS `dummy` (
+CREATE TABLE IF NOT EXISTS `fuel_tracker` (
   `id` INT NOT NULL,
+  `trip_miles` INT NULL,
+  `fuel_cost` DOUBLE NOT NULL,
+  `gallons_per_fill` DOUBLE NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
