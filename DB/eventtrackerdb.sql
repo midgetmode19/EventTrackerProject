@@ -21,7 +21,7 @@ USE `eventtrackerdb` ;
 DROP TABLE IF EXISTS `fuel_tracker` ;
 
 CREATE TABLE IF NOT EXISTS `fuel_tracker` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `trip_miles` INT NULL,
   `fuel_cost` DOUBLE NOT NULL,
   `gallons_per_fill` DOUBLE NULL,
