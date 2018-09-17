@@ -8,6 +8,7 @@ public interface FuelTrackerService {
 	List<FuelTracker> getAllEntries();
 	FuelTracker getById(Integer id);
 	FuelTracker newEntry(FuelTracker entry);
-	FuelTracker updateEntry(FuelTracker entry, Integer id);
+	FuelTracker replaceEntry(FuelTracker entry, Integer id);
 	Boolean deleteEntry(Integer id);
+	FuelTracker patchEntry(String json, Integer id);
 }
