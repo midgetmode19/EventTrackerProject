@@ -60,7 +60,13 @@ public class FuelTrackerController {
 		return replacedEntry;
 	}
 	@RequestMapping(path = "entries/{id}", method = RequestMethod.DELETE)
-	public Boolean destroy(@PathVariable Integer id) {
-		return fts.deleteEntry(id);
+	public Boolean destroy(@PathVariable Integer id, HttpServletResponse resp) {
+		Boolean entryDeleted = fts.deleteEntry(id);
+		if (entryDeleted == true) {
+			resp.setStatus(202);
+		} else {
+			resp.setStatus(500);
+		}
+		return entryDeleted;
 	}
 }
