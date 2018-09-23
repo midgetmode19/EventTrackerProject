@@ -16,13 +16,15 @@ table, th, td {
 		<input type="button" name="viewLog" value="View Entries">
 	</form>
 	<form name="entryForm">
-		<input type="text" name="miles" placeholder="Miles"> <input
-			type="text" name="cost" placeholder="Cost"> <input
-			type="text" name="gallons" placeholder="Gallons of fuel filled">
-		<input type="date" name="refuelDate" placeholder="Date of refuel">
-		<input type="submit" name="submit" value="submit">
+		<input type="text" id="miles" name="miles" placeholder="Miles"> <input
+			type="text" id="cost" name="fuelCost" placeholder="Cost"> <input
+			type="text" id="gallons" name="gallonsPerFill" placeholder="Gallons of fuel filled">
+		<input type="date" id="refuelDate" name="refuelDate" placeholder="Date of refuel">
+		<input type="submit" id="submit" name="submit" value="submit">
 	</form>
 <div id="allEntries">
+	<table id="entriesTable">
+	</table>
 </div>
 
 </body>
