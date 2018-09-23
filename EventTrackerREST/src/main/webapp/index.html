@@ -3,10 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Fuel Tracker</title>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-<h1>Fuel Tracker</h1>
+	<h1>Fuel Tracker</h1>
+	<form name="viewEntries">
+		<input type="button" name="viewLog" value="View Entries">
+	</form>
+	<form name="entryForm">
+		<input type="text" name="miles" placeholder="Miles"> <input
+			type="text" name="cost" placeholder="Cost"> <input
+			type="text" name="gallons" placeholder="Gallons of fuel filled">
+		<input type="date" name="refuelDate" placeholder="Date of refuel">
+		<input type="submit" name="submit" value="submit">
+	</form>
+<div id="allEntries">
+</div>
 
-<script type="script.js"></script>
 </body>
 </html>
