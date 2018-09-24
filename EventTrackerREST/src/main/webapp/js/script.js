@@ -185,7 +185,6 @@ function updateEntry(e) {
 
     document.getElementsByTagName('body')[0].appendChild(form);
 		document.addEventListener('click', submitUpdate);
-
   }
 }
 
@@ -230,6 +229,7 @@ function submitUpdate(e) {
     xhr.send(entryJson);
 
     form.reset();
+		document.removeEventListener('click', submitUpdate);
   }
 }
 /* End Update an Entry */
