@@ -8,6 +8,8 @@ function init() {
   document.entryForm.submit.addEventListener('click', addEntry);
   document.addEventListener('click', updateEntry);
   document.addEventListener('click', deleteEntry);
+
+
 }
 
 function viewEntries(e) {
@@ -139,36 +141,104 @@ function addEntry(e) {
 function updateEntry(e) {
   if (e.target && e.target.id == 'updatebtn') {
     console.log("update click");
+    var form = document.createElement('form');
+    var milesInput = document.createElement('input');
+    var costInput = document.createElement('input');
+    var gallonsInput = document.createElement('input');
+    var dateInput = document.createElement('input');
+    var submitbtn = document.createElement('input');
+
+    var entryId = e.target.parentElement.firstChild.textContent;
+
+    milesInput.type = 'text';
+    milesInput.value = e.target.parentElement.firstChild.nextSibling.textContent;
+    costInput.type = 'text';
+    costInput.value = e.target.parentElement.firstChild.nextSibling.nextSibling.textContent;
+    gallonsInput.type = 'text';
+    gallonsInput.value = e.target.parentElement.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+    dateInput.type = 'date';
+    dateInput.value = e.target.parentElement.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+    submitbtn.type = 'submit';
+    submitbtn.value = 'Submit';
+		submitbtn.id = 'submitbtn';
+
+    form.appendChild(milesInput);
+    form.appendChild(costInput);
+    form.appendChild(gallonsInput);
+    form.appendChild(dateInput);
+    form.appendChild(submitbtn);
+
+    document.getElementsByTagName('body')[0].appendChild(form);
+		document.addEventListener('click', submitUpdate);
+
+
 
   }
 }
 
 function deleteEntry(e) {
   if (e.target && e.target.id == 'deletebtn') {
-    console.log("delete click");
-		var entryId = e.target.parentElement.firstChild.textContent;
-		console.log(entryId);
+    var entryId = e.target.parentElement.firstChild.textContent;
     var xhr = new XMLHttpRequest();
     xhr.open('DELETE', 'api/entries/' + entryId, true);
-		if (!isNaN(entryId) && entryId > 0) {
+    if (!isNaN(entryId) && entryId > 0) {
 
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status == 200 || xhr.status == 202) {
+            var data = JSON.parse(xhr.responseText);
+            console.log(data);
+          } else {
+            console.log("Delete request failed.");
+            console.error(xhr.status + ': ' + xhr.responseText);
+          }
+        }
+      };
+
+      xhr.send();
+    }
+  }
+}
+
+function submitUpdate(e) {
+  e.preventDefault();
+	console.log(e.target);
+  if (e.target && e.target.id == 'submitbtn') {
+		console.log(e.target.parentElement.id);
+    var form = e.target.parentElement;
+    var entryId = form.id.value;
+    var miles = form.miles.value;
+    var cost = form.fuelCost.value;
+    var gallons = form.gallonsPerFill.value;
+    var refuelDate = form.refuelDate.value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('PUT', 'api/entries/' + entryId, true);
+
+    xhr.setRequestHeader("Content-type", "application/json");
+
+    var data;
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
-        if (xhr.status == 200 || xhr.status == 202) {
+        if (xhr.status == 200 || xhr.status == 201) {
           var data = JSON.parse(xhr.responseText);
           console.log(data);
         } else {
-          console.log("Delete request failed.");
+          console.log("PUT request failed.");
           console.error(xhr.status + ': ' + xhr.responseText);
         }
       }
     };
+    var entry = {
+      "id": entryId.value,
+      "miles": milesInput.value,
+      "fuelCost": costInput.value,
+      "gallonsPerFill": gallonsInput.value,
+      "refuelDate": dateInput.value
+    }
+    var entryJson = JSON.stringify(entry);
+    xhr.send(entryJson);
 
-    xhr.send();
+    form.reset();
   }
-}
-}
-
-function updateDeleteForm() {
-  document.createElement('form');
 }
