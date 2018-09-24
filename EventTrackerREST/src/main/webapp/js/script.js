@@ -11,7 +11,7 @@ function init() {
 
 
 }
-
+/* View Table */
 function viewEntries(e) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "/api/entries");
@@ -100,9 +100,10 @@ function displayEntries(entries) {
 
   document.viewEntries.viewLog.removeEventListener('click', viewEntries);
 }
+/* End View Table */
 
+/* Add Entry */
 function addEntry(e) {
-  e.preventDefault();
   var form = e.target.parentElement;
   var miles = form.miles.value;
   var cost = form.fuelCost.value;
@@ -137,7 +138,9 @@ function addEntry(e) {
 
   form.reset();
 }
+/* End Add Entry */
 
+/*Update an Entry */
 function updateEntry(e) {
   if (e.target && e.target.id == 'updatebtn') {
     console.log("update click");
@@ -171,32 +174,6 @@ function updateEntry(e) {
     document.getElementsByTagName('body')[0].appendChild(form);
 		document.addEventListener('click', submitUpdate);
 
-
-
-  }
-}
-
-function deleteEntry(e) {
-  if (e.target && e.target.id == 'deletebtn') {
-    var entryId = e.target.parentElement.firstChild.textContent;
-    var xhr = new XMLHttpRequest();
-    xhr.open('DELETE', 'api/entries/' + entryId, true);
-    if (!isNaN(entryId) && entryId > 0) {
-
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          if (xhr.status == 200 || xhr.status == 202) {
-            var data = JSON.parse(xhr.responseText);
-            console.log(data);
-          } else {
-            console.log("Delete request failed.");
-            console.error(xhr.status + ': ' + xhr.responseText);
-          }
-        }
-      };
-
-      xhr.send();
-    }
   }
 }
 
@@ -242,3 +219,31 @@ function submitUpdate(e) {
     form.reset();
   }
 }
+/* End Update an Entry */
+
+/* Delete an Entry */
+function deleteEntry(e) {
+  if (e.target && e.target.id == 'deletebtn') {
+    var entryId = e.target.parentElement.firstChild.textContent;
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', 'api/entries/' + entryId, true);
+    if (!isNaN(entryId) && entryId > 0) {
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status == 200 || xhr.status == 202) {
+            var data = JSON.parse(xhr.responseText);
+						viewEntries();
+            console.log(data);
+          } else {
+            console.log("Delete request failed.");
+            console.error(xhr.status + ': ' + xhr.responseText);
+          }
+        }
+      };
+
+      xhr.send();
+    }
+  }
+}
+/* End Delete an Entry */
