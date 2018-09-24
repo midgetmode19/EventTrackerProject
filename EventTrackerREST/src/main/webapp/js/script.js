@@ -42,6 +42,7 @@ function displayEntries(entries) {
   var thCost = document.createElement('th');
   var thGallons = document.createElement('th');
   var thDate = document.createElement('th');
+	var thMPG = document.createElement('th');
 
   var tbody = document.createElement('tbody');
 
@@ -50,12 +51,14 @@ function displayEntries(entries) {
   thCost.textContent = "Fuel Cost";
   thGallons.textContent = "Gallons This Fill";
   thDate.textContent = "Date of Refuel";
+	thMPG.textContent= "Average Miles Per Gallon";
 
   trh.appendChild(thId);
   trh.appendChild(thMiles);
   trh.appendChild(thCost);
   trh.appendChild(thGallons);
   trh.appendChild(thDate);
+	trh.appendChild(thMPG);
   thead.appendChild(trh);
   table.appendChild(thead);
 
@@ -67,6 +70,7 @@ function displayEntries(entries) {
     var tdCost = document.createElement('td');
     var tdGallons = document.createElement('td');
     var tdDate = document.createElement('td');
+		var tdAvgMPG = document.createElement('td');
     var tdUpdate = document.createElement('td');
     var tdDelete = document.createElement('td');
     var tdUpdateButton = document.createElement('input');
@@ -84,12 +88,14 @@ function displayEntries(entries) {
     tdCost.textContent = "$" + value.fuelCost;
     tdGallons.textContent = value.gallonsPerFill;
     tdDate.textContent = value.refuelDate;
+		tdAvgMPG.textContent = value.miles / value.gallonsPerFill;
 
     tr.appendChild(tdId);
     tr.appendChild(tdMiles);
     tr.appendChild(tdCost);
     tr.appendChild(tdGallons);
     tr.appendChild(tdDate);
+		tr.appendChild(tdAvgMPG);
     tr.appendChild(tdUpdateButton);
     tr.appendChild(tdDeleteButton);
     tbody.appendChild(tr);
