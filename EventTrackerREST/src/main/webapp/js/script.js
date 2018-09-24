@@ -151,26 +151,32 @@ function updateEntry(e) {
   if (e.target && e.target.id == 'updatebtn') {
     console.log("update click");
     var form = document.createElement('form');
+		var idInput = document.createElement('input');
     var milesInput = document.createElement('input');
     var costInput = document.createElement('input');
     var gallonsInput = document.createElement('input');
     var dateInput = document.createElement('input');
     var submitbtn = document.createElement('input');
 
-    var entryId = e.target.parentElement.firstChild.textContent;
-
+		idInput.name = 'id';
+		idInput.value = e.target.parentElement.firstChild.textContent;
     milesInput.type = 'text';
     milesInput.value = e.target.parentElement.firstChild.nextSibling.textContent;
+		milesInput.name = 'miles';
     costInput.type = 'text';
     costInput.value = e.target.parentElement.firstChild.nextSibling.nextSibling.textContent;
+		costInput.name = 'fuelCost';
     gallonsInput.type = 'text';
     gallonsInput.value = e.target.parentElement.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+		gallonsInput.name = 'gallonsPerFill';
     dateInput.type = 'date';
     dateInput.value = e.target.parentElement.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+		dateInput.name = 'refuelDate';
     submitbtn.type = 'submit';
     submitbtn.value = 'Submit';
 		submitbtn.id = 'submitbtn';
 
+		form.appendChild(idInput);
     form.appendChild(milesInput);
     form.appendChild(costInput);
     form.appendChild(gallonsInput);
@@ -203,7 +209,7 @@ function submitUpdate(e) {
     var data;
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
-        if (xhr.status == 200 || xhr.status == 201) {
+        if (xhr.status == 200 || xhr.status == 202) {
           var data = JSON.parse(xhr.responseText);
           console.log(data);
         } else {
@@ -213,12 +219,13 @@ function submitUpdate(e) {
       }
     };
     var entry = {
-      "id": entryId.value,
-      "miles": milesInput.value,
-      "fuelCost": costInput.value,
-      "gallonsPerFill": gallonsInput.value,
-      "refuelDate": dateInput.value
+      "id": entryId,
+      "miles": parseInt(miles),
+      "fuelCost": cost.substring(1),
+      "gallonsPerFill": gallons,
+      "refuelDate": refuelDate
     }
+		console.log(entry);
     var entryJson = JSON.stringify(entry);
     xhr.send(entryJson);
 
