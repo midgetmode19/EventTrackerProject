@@ -1,9 +1,9 @@
-import { FuelTrackerService } from './../fuel-tracker.service';
-
-import { Entry } from '../models/entry';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Entry } from '../models/entry';
+import { FuelTrackerService } from './../fuel-tracker.service';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-fuel-tracker',
@@ -20,7 +20,6 @@ export class FuelTrackerComponent implements OnInit {
     this.ftService.index().subscribe(
       data => {
         this.entries = data;
-        console.log(data);
       },
       err => console.error('Observer got an error ' + err)
     );
@@ -68,10 +67,21 @@ export class FuelTrackerComponent implements OnInit {
   constructor(
     private ftService: FuelTrackerService,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
     this.reload();
+    // const entryId = this.activatedRoute.snapshot.paramMap.get('id');
+    // if (entryId) {
+    //   this.ftService.show(entryId).subscribe(data => {
+    //     if (data) {
+    //       this.selected = data;
+    //     } else {
+    //       this.router.navigateByUrl('/notFound');
+    //     }
+    //   });
+    // }
   }
 }

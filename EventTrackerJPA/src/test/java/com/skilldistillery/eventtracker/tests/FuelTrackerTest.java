@@ -36,6 +36,7 @@ class FuelTrackerTest {
 		assertEquals(318, ft.getMiles(), 1);
 		assertEquals(32.96, ft.getFuelCost(), .01);
 		assertEquals(10.893, ft.getGallonsPerFill(), .01);
+		assertEquals(5, ft.getRefuelDate().getDayOfMonth());
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.skilldistillery.eventtracker.entities;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,12 +27,12 @@ public class FuelTracker {
 	private Double gallonsPerFill;
 
 	@Column(name = "date_of_refuel")
-	private Date refuelDate;
+	private LocalDate refuelDate;
 
 	public FuelTracker() {
 	}
 
-	public FuelTracker(int id, Integer miles, Double fuelCost, Double gallonsPerFill, Date refuelDate) {
+	public FuelTracker(int id, Integer miles, Double fuelCost, Double gallonsPerFill, LocalDate refuelDate) {
 		this.id = id;
 		this.miles = miles;
 		this.fuelCost = fuelCost;
@@ -71,11 +72,11 @@ public class FuelTracker {
 		this.gallonsPerFill = gallonsPerFill;
 	}
 
-	public Date getRefuelDate() {
+	public LocalDate getRefuelDate() {
 		return refuelDate;
 	}
 
-	public void setRefuelDate(Date refuelDate) {
+	public void setRefuelDate(LocalDate refuelDate) {
 		this.refuelDate = refuelDate;
 	}
 

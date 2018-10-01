@@ -33,7 +33,7 @@ public class FuelTrackerController {
 	@RequestMapping(path = "entries", method = RequestMethod.POST)
 	public FuelTracker create(@RequestBody FuelTracker entry, HttpServletResponse resp){
 		FuelTracker newEntry = fts.newEntry(entry);
-		if (newEntry != null && !newEntry.equals(entry)) {
+		if (newEntry != null && newEntry.getId() != 0) {
 			resp.setStatus(201);
 		} else {
 			resp.setStatus(500);
