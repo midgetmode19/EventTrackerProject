@@ -1,0 +1,90 @@
+<!-- Show Entries -->
+<div class="table-responsive" *ngIf="!selected">
+  <table class="table table-bordered table-striped table-hover table-sm">
+    <thead>
+      <tr>
+        <th>Entry ID</th>
+        <th>Miles This Trip</th>
+        <th>Fuel Cost</th>
+        <th>Gallons Filled</th>
+        <th>Refuel Date</th>
+        <th>Delete Entry</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of entries" >
+        <td (click)="displayEntry(entry)">{{entry.id}}</td>
+        <td (click)="displayEntry(entry)">{{entry.miles}}</td>
+        <td (click)="displayEntry(entry)">{{entry.fuelCost | currency}}</td>
+        <td (click)="displayEntry(entry)">{{entry.gallonsPerFill | number:'1.1-3'}}</td>
+        <td (click)="displayEntry(entry)">{{entry.refuelDate | date:'shortDate'}}</td>
+        <td class="text-center"><button class="btn btn-outline-danger btn-sm" (click)="deleteTodo(entry.id)">X</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Show Entries -->
+<!-- Show Single Entry -->
+<div class="table-responsive" *ngIf="selected && !editEntry">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Refueled on {{selected.refuelDate | date:'fullDate'}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Entry ID: {{selected.id | number}}</td>
+      </tr>
+      <tr>
+        <td>Miles driven this tank: {{selected.miles}}</td>
+      </tr>
+      <tr>
+        <td>Cost to refill tank: {{selected.fuelCost | currency}}</td>
+      </tr>
+      <tr>
+        <td>Gallons filled: {{selected.gallonsPerFill | number:'1.1-3'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-secondary btn-sm" (click)="allEntries()">Go Back</button>
+  <button class="btn btn-secondary btn-sm" (click)="setEditEntry()">Edit</button>
+</div>
+<!-- Show Single Entry -->
+<!-- Add new -->
+<div *ngIf="!selected">
+  <form>
+<div class="form-group row">
+  <input type="number" class="form-control col-2" name="miles" [(ngModel)]="newEntry.miles" placeholder="Miles">
+  <input type="number" class="form-control col-2" name="fuelCost" [(ngModel)]="newEntry.fuelCost" placeholder="Cost">
+  <input type="number" class="form-control col-2" name="gallons" [(ngModel)]="newEntry.gallonsPerFill" placeholder="Gallons Filled">
+  <input type="date" class="form-control col-4" name="refuelDate" [(ngModel)]="newEntry.refuelDate">
+</div>
+    <button class="btn btn-secondary btn-sm" (click)="addEntry()">Submit New Entry</button>
+  </form>
+</div>
+<!-- Add new -->
+<!-- Edit Entry Form -->
+<div *ngIf="selected && editEntry">
+  <form>
+    <div class="form-group row">
+      <label for="miles" class="col-sm-4 col-form-label">Miles:</label>
+      <input type="number" class="form-control col-4" name="miles" [(ngModel)]="editEntry.miles">
+    </div>
+    <div class="form-group row">
+      <label for="cost" class="col-sm-4 col-form-label">Cost:</label>
+      <input type="number" class="form-control col-4" name="fuelCost" [(ngModel)]="editEntry.fuelCost">
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="gallons">Gallons Filled:</label>
+        <input type="number" class="form-control col-4" name="gallons" [(ngModel)]="editEntry.gallonsPerFill">
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="refuelDate">Date of Fill:</label>
+        <input type="date" class="form-control col-4" name="refuelDate" [(ngModel)]="editEntry.refuelDate">
+    </div>
+    <button class="btn btn-secondary btn-sm" (click)="updateEntry(editEntry)">Save</button>
+    <button class="btn btn-dark btn-sm" (click)="cancel(editEntry)">Cancel</button>
+  </form>
+</div>
+<!-- Edit Entry Form -->

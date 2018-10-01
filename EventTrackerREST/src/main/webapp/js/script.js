@@ -14,7 +14,7 @@ function init() {
 /* View Table */
 function viewEntries(e) {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/api/entries");
+  xhr.open("GET", "api/entries");
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
